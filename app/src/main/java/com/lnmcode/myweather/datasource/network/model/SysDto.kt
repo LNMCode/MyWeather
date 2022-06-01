@@ -1,5 +1,7 @@
 package com.lnmcode.myweather.datasource.network.model
 
+import com.lnmcode.myweather.datasource.network.DomainMapper
+import com.lnmcode.myweather.domain.model.Sys
 import com.squareup.moshi.Json
 
 data class SysDto (
@@ -11,4 +13,10 @@ data class SysDto (
 
     @Json(name="sunset")
     val sunset: Int? = null
-)
+): DomainMapper<Sys> {
+    override fun toDomain() = Sys(
+        country = country,
+        sunrise = sunrise,
+        sunset = sunset,
+    )
+}

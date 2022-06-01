@@ -1,12 +1,14 @@
 package com.lnmcode.myweather.datasource.network.model
 
+import com.lnmcode.myweather.datasource.network.DomainMapper
+import com.lnmcode.myweather.domain.model.Weather
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class WeatherResponse(
     @Json(name="rain")
-	val rain: RainDto ? = null,
+	val rain: RainDto? = null,
 
     @Json(name="visibility")
 	val visibility: Int? = null,
@@ -30,7 +32,7 @@ data class WeatherResponse(
 	val coord: CoordDto ? = null,
 
     @Json(name="weather")
-	val weather: List<WeatherItemDto ?>? = null,
+	val weather: List<WeatherItemDto?>? = null,
 
     @Json(name="name")
 	val name: String? = null,
@@ -46,7 +48,24 @@ data class WeatherResponse(
 
     @Json(name="wind")
 	val wind: WindDto ? = null
-)
+): DomainMapper<Weather> {
+    override fun toDomain() = Weather(
+        rain = rain?.toDomain(),
+        visibility = visibility,
+        timezone = timezone,
+        main = main?.toDomain(),
+        clouds = clouds?.toDomain(),
+        sys = sys?.toDomain(),
+        dt = dt,
+        coord = coord?.toDomain(),
+        weather = weather?.map { it?.toDomain() },
+        name = name,
+        cod = cod,
+        id = id,
+        base = base,
+        wind = wind?.toDomain(),
+    )
+}
 
 
 
