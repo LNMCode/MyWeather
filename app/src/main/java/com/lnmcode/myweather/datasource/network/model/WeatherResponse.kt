@@ -1,13 +1,12 @@
 package com.lnmcode.myweather.datasource.network.model
 
-import com.lnmcode.myweather.datasource.network.model.Clouds
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class WeatherResponse(
     @Json(name="rain")
-	val rain: Rain? = null,
+	val rain: RainDto ? = null,
 
     @Json(name="visibility")
 	val visibility: Int? = null,
@@ -16,22 +15,22 @@ data class WeatherResponse(
 	val timezone: Int? = null,
 
     @Json(name="main")
-	val main: Main? = null,
+	val main: MainDto ? = null,
 
     @Json(name="clouds")
-	val clouds: Clouds? = null,
+	val clouds: CloudsDto ? = null,
 
     @Json(name="sys")
-	val sys: Sys? = null,
+	val sys: SysDto ? = null,
 
     @Json(name="dt")
 	val dt: Int? = null,
 
     @Json(name="coord")
-	val coord: Coord? = null,
+	val coord: CoordDto ? = null,
 
     @Json(name="weather")
-	val weather: List<WeatherItem?>? = null,
+	val weather: List<WeatherItemDto ?>? = null,
 
     @Json(name="name")
 	val name: String? = null,
@@ -46,7 +45,7 @@ data class WeatherResponse(
 	val base: String? = null,
 
     @Json(name="wind")
-	val wind: Wind? = null
+	val wind: WindDto ? = null
 )
 
 

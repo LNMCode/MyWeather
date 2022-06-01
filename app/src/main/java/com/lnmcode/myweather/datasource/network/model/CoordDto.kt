@@ -2,7 +2,7 @@ package com.lnmcode.myweather.datasource.network.model
 
 import com.squareup.moshi.Json
 
-data class Coord(
+data class CoordDto (
     @Json(name="lon")
     val lon: Double? = null,
 

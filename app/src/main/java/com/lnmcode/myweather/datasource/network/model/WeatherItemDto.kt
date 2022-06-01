@@ -2,7 +2,7 @@ package com.lnmcode.myweather.datasource.network.model
 
 import com.squareup.moshi.Json
 
-data class WeatherItem(
+data class WeatherItemDto (
 
     @Json(name="icon")
     val icon: String? = null,

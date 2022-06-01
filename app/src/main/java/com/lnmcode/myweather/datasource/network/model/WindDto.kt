@@ -2,7 +2,7 @@ package com.lnmcode.myweather.datasource.network.model
 
 import com.squareup.moshi.Json
 
-data class Wind(
+data class WindDto (
 
     @Json(name="deg")
     val deg: Int? = null,

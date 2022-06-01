@@ -2,7 +2,7 @@ package com.lnmcode.myweather.datasource.network.model
 
 import com.squareup.moshi.Json
 
-data class Sys(
+data class SysDto (
     @Json(name="country")
     val country: String? = null,
 
