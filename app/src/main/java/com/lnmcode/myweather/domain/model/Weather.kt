@@ -1,10 +1,6 @@
 package com.lnmcode.myweather.domain.model
 
-import com.lnmcode.myweather.datasource.network.model.Clouds
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-
-data class WeatherResponse(
+data class Weather(
 	val rain: Rain? = null,
 	val visibility: Int? = null,
 	val timezone: Int? = null,
