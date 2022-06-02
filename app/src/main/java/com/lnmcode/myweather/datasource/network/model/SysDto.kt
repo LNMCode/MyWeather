@@ -12,11 +12,19 @@ data class SysDto (
     val sunrise: Int? = null,
 
     @Json(name="sunset")
-    val sunset: Int? = null
+    val sunset: Int? = null,
+
+    @Json(name = "id")
+    val id: Int? = null,
+
+    @Json(name = "type")
+    val type: Int? = null
 ): DomainMapper<Sys> {
     override fun toDomain() = Sys(
         country = country,
         sunrise = sunrise,
         sunset = sunset,
+        id = id,
+        type = type
     )
 }

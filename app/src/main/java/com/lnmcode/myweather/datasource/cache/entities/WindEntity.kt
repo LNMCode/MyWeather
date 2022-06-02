@@ -9,13 +9,13 @@ import com.lnmcode.myweather.mapper.DomainMapper
 
 data class WindEntity(
     @ColumnInfo(name = "deg")
-    val deg: Int,
+    val deg: Int? = null,
 
     @ColumnInfo(name = "gust")
-    val gust: Double,
+    val gust: Double? = null,
 
     @ColumnInfo(name = "speed")
-    val speed: Double
+    val speed: Double? = null
 ): DomainMapper<Wind> {
     override fun toDomain() = Wind(
         deg = deg,

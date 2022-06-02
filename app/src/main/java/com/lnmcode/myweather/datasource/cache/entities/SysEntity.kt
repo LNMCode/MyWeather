@@ -9,23 +9,25 @@ import com.lnmcode.myweather.mapper.DomainMapper
 
 data class SysEntity(
     @ColumnInfo(name = "country")
-    val country: String,
+    val country: String?,
 
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Int?,
 
     @ColumnInfo(name = "sunrise")
-    val sunrise: Int,
+    val sunrise: Int?,
 
     @ColumnInfo(name = "sunset")
-    val sunset: Int,
+    val sunset: Int?,
 
     @ColumnInfo(name = "type")
-    val type: Int
+    val type: Int?
 ): DomainMapper<Sys> {
     override fun toDomain() = Sys(
         country = country,
         sunrise = sunrise,
         sunset = sunset,
+        id = id,
+        type = type
     )
 }

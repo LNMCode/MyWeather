@@ -9,17 +9,17 @@ import com.lnmcode.myweather.mapper.DomainMapper
 
 data class WeatherItemEntity(
     @ColumnInfo(name = "description")
-    val description: String,
+    val description: String? = null,
 
     @ColumnInfo(name = "icon")
-    val icon: String,
+    val icon: String? = null,
 
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Int? = null,
 
     @ColumnInfo(name = "main")
-    val main: String
-): DomainMapper<WeatherItem> {
+    val main: String? = null
+) : DomainMapper<WeatherItem> {
     override fun toDomain() = WeatherItem(
         icon = icon,
         description = description,

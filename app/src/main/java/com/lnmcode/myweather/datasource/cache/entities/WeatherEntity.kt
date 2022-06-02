@@ -9,60 +9,60 @@ import com.lnmcode.myweather.mapper.DomainMapper
 data class WeatherEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Int? = null,
 
-    @Embedded(prefix="rain_")
-    val rainEntity: RainEntity,
+    @Embedded(prefix = "rain_")
+    val rainEntity: RainEntity? = null,
 
     @ColumnInfo(name = "base")
-    val base: String,
+    val base: String? = null,
 
     @Embedded(prefix = "clouds_")
-    val cloudsEntity: CloudsEntity,
+    val cloudsEntity: CloudsEntity? = null,
 
     @ColumnInfo(name = "cod")
-    val cod: Int,
+    val cod: Int? = null,
 
     @Embedded(prefix = "coord_")
-    val coordEntity: CoordEntity,
+    val coordEntity: CoordEntity? = null,
 
     @ColumnInfo(name = "dt")
-    val dt: Int,
+    val dt: Int? = null,
 
     @Embedded(prefix = "main_")
-    val mainEntity: MainEntity,
+    val mainEntity: MainEntity? = null,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    val name: String? = null,
 
     @Embedded(prefix = "sys_")
-    val sysEntity: SysEntity,
+    val sysEntity: SysEntity? = null,
 
     @ColumnInfo(name = "timezone")
-    val timezone: Int,
+    val timezone: Int? = null,
 
     @ColumnInfo(name = "visibility")
-    val visibility: Int,
+    val visibility: Int? = null,
 
-    val weatherItemHolder: WeatherItemEntityHolder,
+    val weatherItemHolder: WeatherItemEntityHolder? = null,
 
     @Embedded(prefix = "wind_")
-    val windEntity: WindEntity
-): DomainMapper<Weather> {
+    val windEntity: WindEntity? = null
+) : DomainMapper<Weather> {
     override fun toDomain() = Weather(
-        rain = rainEntity.toDomain(),
+        rain = rainEntity?.toDomain(),
         visibility = visibility,
         timezone = timezone,
-        main = mainEntity.toDomain(),
-        clouds = cloudsEntity.toDomain(),
-        sys = sysEntity.toDomain(),
+        main = mainEntity?.toDomain(),
+        clouds = cloudsEntity?.toDomain(),
+        sys = sysEntity?.toDomain(),
         dt = dt,
-        coord = coordEntity.toDomain(),
-        weather = weatherItemHolder.weatherItemEntity.map { it.toDomain() },
+        coord = coordEntity?.toDomain(),
+        weather = weatherItemHolder?.weatherItemEntity?.map { it?.toDomain() },
         name = name,
         cod = cod,
         id = id,
         base = base,
-        wind = windEntity.toDomain(),
+        wind = windEntity?.toDomain(),
     )
 }

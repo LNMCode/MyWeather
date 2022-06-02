@@ -10,22 +10,22 @@ import com.squareup.moshi.Json
 
 data class MainEntity(
     @ColumnInfo(name = "feels_like")
-    val feelsLike: Double,
+    val feelsLike: Double?,
 
     @ColumnInfo(name = "humidity")
-    val humidity: Int,
+    val humidity: Int?,
 
     @ColumnInfo(name = "pressure")
-    val pressure: Int,
+    val pressure: Int?,
 
     @ColumnInfo(name = "temp")
-    val temp: Double,
+    val temp: Double?,
 
     @ColumnInfo(name = "temp_max")
-    val tempMax: Double,
+    val tempMax: Double?,
 
     @ColumnInfo(name = "temp_min")
-    val tempMin: Double,
+    val tempMin: Double?,
 
     @ColumnInfo(name = "grnd_level")
     val grndLevel: Int? = null,
