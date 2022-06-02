@@ -3,14 +3,14 @@ package com.lnmcode.myweather.datasource.cache.converters
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.lnmcode.myweather.datasource.cache.entities.WeatherItemEntity
+import com.lnmcode.myweather.datasource.cache.entities.holder.WeatherItemEntityHolder
 
 class WeatherConverter {
 
     @TypeConverter
-    fun fromListWeatherItem(list: List<WeatherItemEntity>) = Gson().toJson(list)
+    fun fromWeatherItemEntityHolder(holder: WeatherItemEntityHolder): String = Gson().toJson(holder)
 
     @TypeConverter
-    fun fromStringWeatherItem(value: String): List<WeatherItemEntity> =
-        Gson().fromJson(value, object : TypeToken<List<WeatherItemEntity>>() {}.type)
+    fun fromStringWeatherItemEntityHolder(value: String): WeatherItemEntityHolder =
+        Gson().fromJson(value, object : TypeToken<WeatherItemEntityHolder>() {}.type)
 }
