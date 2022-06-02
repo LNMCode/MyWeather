@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0a6b26a389c4340fb93899f4c63c4354",
+    "identityHash": "3ec910ac6085a8badb1f65bc81135827",
     "entities": [
       {
         "tableName": "weather",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `base` TEXT NOT NULL, `cod` INTEGER NOT NULL, `dt` INTEGER NOT NULL, `name` TEXT NOT NULL, `timezone` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `weatherItemEntity` TEXT NOT NULL, `clouds_all` INTEGER NOT NULL, `coord_lat` INTEGER NOT NULL, `coord_lon` INTEGER NOT NULL, `main_feels_like` REAL NOT NULL, `main_humidity` INTEGER NOT NULL, `main_pressure` INTEGER NOT NULL, `main_temp` REAL NOT NULL, `main_temp_max` REAL NOT NULL, `main_temp_min` REAL NOT NULL, `sys_country` TEXT NOT NULL, `sys_id` INTEGER NOT NULL, `sys_sunrise` INTEGER NOT NULL, `sys_sunset` INTEGER NOT NULL, `sys_type` INTEGER NOT NULL, `wind_deg` INTEGER NOT NULL, `wind_gust` REAL NOT NULL, `wind_speed` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `base` TEXT NOT NULL, `cod` INTEGER NOT NULL, `dt` INTEGER NOT NULL, `name` TEXT NOT NULL, `timezone` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `weatherItemHolder` TEXT NOT NULL, `rain_1h` REAL NOT NULL, `clouds_all` INTEGER NOT NULL, `coord_lat` REAL NOT NULL, `coord_lon` REAL NOT NULL, `main_feels_like` REAL NOT NULL, `main_humidity` INTEGER NOT NULL, `main_pressure` INTEGER NOT NULL, `main_temp` REAL NOT NULL, `main_temp_max` REAL NOT NULL, `main_temp_min` REAL NOT NULL, `main_grnd_level` INTEGER, `main_sea_level` INTEGER, `sys_country` TEXT NOT NULL, `sys_id` INTEGER NOT NULL, `sys_sunrise` INTEGER NOT NULL, `sys_sunset` INTEGER NOT NULL, `sys_type` INTEGER NOT NULL, `wind_deg` INTEGER NOT NULL, `wind_gust` REAL NOT NULL, `wind_speed` REAL NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -51,9 +51,15 @@
             "notNull": true
           },
           {
-            "fieldPath": "weatherItemEntity",
-            "columnName": "weatherItemEntity",
+            "fieldPath": "weatherItemHolder",
+            "columnName": "weatherItemHolder",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rainEntity.jsonMember1h",
+            "columnName": "rain_1h",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -65,13 +71,13 @@
           {
             "fieldPath": "coordEntity.lat",
             "columnName": "coord_lat",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "coordEntity.lon",
             "columnName": "coord_lon",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -109,6 +115,18 @@
             "columnName": "main_temp_min",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "mainEntity.grndLevel",
+            "columnName": "main_grnd_level",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mainEntity.seaLevel",
+            "columnName": "main_sea_level",
+            "affinity": "INTEGER",
+            "notNull": false
           },
           {
             "fieldPath": "sysEntity.country",
@@ -172,7 +190,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0a6b26a389c4340fb93899f4c63c4354')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ec910ac6085a8badb1f65bc81135827')"
     ]
   }
 }
