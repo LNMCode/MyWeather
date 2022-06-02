@@ -1,4 +1,4 @@
-package com.lnmcode.myweather.datasource.network
+package com.lnmcode.myweather.mapper
 
 interface DomainMapper<T> {
     fun toDomain(): T
