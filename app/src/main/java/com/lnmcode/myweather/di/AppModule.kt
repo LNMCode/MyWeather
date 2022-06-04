@@ -1,3 +1,3 @@
 package com.lnmcode.myweather.di
 
-val appModule = networkModule + persistenceModule + repositoryModule + useCaseModule + viewModelModule
+val appModule = networkModule + repositoryModule + useCaseModule + persistenceModule + viewModelModule
