@@ -3,19 +3,21 @@ package com.lnmcode.myweather.datasource.network.model
 import com.lnmcode.myweather.mapper.DomainMapper
 import com.lnmcode.myweather.domain.model.WeatherItem
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class WeatherItemDto (
 
-    @Json(name="icon")
+    @field:Json(name="icon")
     val icon: String? = null,
 
-    @Json(name="description")
+    @field:Json(name="description")
     val description: String? = null,
 
-    @Json(name="main")
+    @field:Json(name="main")
     val main: String? = null,
 
-    @Json(name="id")
+    @field:Json(name="id")
     val id: Int? = null
 ): DomainMapper<WeatherItem> {
     override fun toDomain() = WeatherItem(
