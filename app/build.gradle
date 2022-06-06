@@ -106,6 +106,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_architecture"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle_architecture"
 
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:$versions.viewpager2"
+
     // debugging
     implementation "com.jakewharton.timber:timber:$versions.timber"
 }
