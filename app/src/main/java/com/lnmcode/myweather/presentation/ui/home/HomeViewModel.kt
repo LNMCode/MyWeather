@@ -13,6 +13,8 @@ class HomeViewModel(
     private val weatherUseCase: WeatherUseCase,
 ) : BaseViewModel() {
 
+    val haha = "https://s7d2.scene7.com/is/image/TWCNews/0801_n13_chuluotaweatherjpg"
+
     fun getWeather() {
         viewModelScope.launch {
             weatherUseCase.getWeatherByLatLon("39.31", "-74.5") {
