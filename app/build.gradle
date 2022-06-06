@@ -109,6 +109,9 @@ dependencies {
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:$versions.viewpager2"
 
+    // Dexter request permission
+    implementation "com.karumi:dexter:$versions.dexter"
+
     // debugging
     implementation "com.jakewharton.timber:timber:$versions.timber"
 }
