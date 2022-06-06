@@ -1,4 +1,4 @@
-package com.lnmcode.myweather.domain.model
+package com.lnmcode.myweather.domain.model.weather
 
 import com.lnmcode.myweather.datasource.cache.entities.weather.CloudsEntity
 import com.lnmcode.myweather.mapper.EntityMapper

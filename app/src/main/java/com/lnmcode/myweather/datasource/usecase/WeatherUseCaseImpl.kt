@@ -1,7 +1,7 @@
 package com.lnmcode.myweather.datasource.usecase
 
 import com.lnmcode.myweather.datasource.network.helper.WeatherApiRepository
-import com.lnmcode.myweather.domain.model.Weather
+import com.lnmcode.myweather.domain.model.weather.Weather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

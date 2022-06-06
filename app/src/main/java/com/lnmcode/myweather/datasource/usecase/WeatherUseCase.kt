@@ -1,7 +1,7 @@
 package com.lnmcode.myweather.datasource.usecase
 
 import androidx.annotation.WorkerThread
-import com.lnmcode.myweather.domain.model.Weather
+import com.lnmcode.myweather.domain.model.weather.Weather
 import kotlinx.coroutines.flow.Flow
 
 interface WeatherUseCase {

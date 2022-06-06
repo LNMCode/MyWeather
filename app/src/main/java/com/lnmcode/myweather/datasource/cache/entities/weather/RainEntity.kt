@@ -1,7 +1,7 @@
 package com.lnmcode.myweather.datasource.cache.entities.weather
 
 import androidx.room.ColumnInfo
-import com.lnmcode.myweather.domain.model.Rain
+import com.lnmcode.myweather.domain.model.weather.Rain
 import com.lnmcode.myweather.mapper.DomainMapper
 
 data class RainEntity(

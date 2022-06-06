@@ -2,7 +2,7 @@ package com.lnmcode.myweather.datasource.cache.entities.weather
 
 import androidx.room.*
 import com.lnmcode.myweather.datasource.cache.entities.holder.WeatherItemEntityHolder
-import com.lnmcode.myweather.domain.model.Weather
+import com.lnmcode.myweather.domain.model.weather.Weather
 import com.lnmcode.myweather.mapper.DomainMapper
 
 @Entity(tableName = "weather")

@@ -1,7 +1,7 @@
 package com.lnmcode.myweather.datasource.network.model
 
 import com.lnmcode.myweather.mapper.DomainMapper
-import com.lnmcode.myweather.domain.model.Main
+import com.lnmcode.myweather.domain.model.weather.Main
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
