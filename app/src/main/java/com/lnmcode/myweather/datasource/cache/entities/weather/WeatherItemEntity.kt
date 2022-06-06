@@ -1,4 +1,4 @@
-package com.lnmcode.myweather.datasource.cache.entities
+package com.lnmcode.myweather.datasource.cache.entities.weather
 
 
 import androidx.room.ColumnInfo

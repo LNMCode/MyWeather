@@ -1,6 +1,6 @@
 package com.lnmcode.myweather.domain.model
 
-import com.lnmcode.myweather.datasource.cache.entities.MainEntity
+import com.lnmcode.myweather.datasource.cache.entities.weather.MainEntity
 import com.lnmcode.myweather.mapper.EntityMapper
 
 data class Main(

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.lnmcode.myweather.datasource.cache.entities.WeatherEntity
+import com.lnmcode.myweather.datasource.cache.entities.weather.WeatherEntity
 
 @Dao
 interface WeatherDao {

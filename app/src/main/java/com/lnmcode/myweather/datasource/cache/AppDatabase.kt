@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.lnmcode.myweather.datasource.cache.converters.WeatherConverter
 import com.lnmcode.myweather.datasource.cache.dao.WeatherDao
-import com.lnmcode.myweather.datasource.cache.entities.WeatherEntity
+import com.lnmcode.myweather.datasource.cache.entities.weather.WeatherEntity
 
 @Database(entities = [WeatherEntity::class], version = 1)
 @TypeConverters(value = [WeatherConverter::class])
