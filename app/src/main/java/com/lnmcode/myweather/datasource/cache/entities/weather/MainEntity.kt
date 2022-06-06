@@ -2,11 +2,8 @@ package com.lnmcode.myweather.datasource.cache.entities.weather
 
 
 import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.lnmcode.myweather.domain.model.weather.Main
 import com.lnmcode.myweather.mapper.DomainMapper
-import com.squareup.moshi.Json
 
 data class MainEntity(
     @ColumnInfo(name = "feels_like")

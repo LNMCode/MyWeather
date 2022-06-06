@@ -1,7 +1,6 @@
 package com.lnmcode.myweather.datasource.network.helper
 
 import com.lnmcode.myweather.datasource.network.model.WeatherResponse
-import com.lnmcode.myweather.domain.model.weather.Weather
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
