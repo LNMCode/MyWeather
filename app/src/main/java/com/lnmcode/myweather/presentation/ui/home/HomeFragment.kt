@@ -18,13 +18,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     override fun setUpLayout() {
+        setUpSlideViewPager()
     }
 
     override fun setUpEvents() {
-        binding.haha.setOnClickListener {
-            Timber.d("Request")
-            viewModel.getWeather()
-        }
+//        binding.ivBackground.setOnClickListener {
+//            Timber.d("Request")
+//            viewModel.getWeather()
+//        }
+    }
+
+    private fun setUpSlideViewPager() {
+        val slideAdapter = HomeSlidePagerAdapter(this)
+        binding.vpHome.adapter = slideAdapter
     }
 
 }

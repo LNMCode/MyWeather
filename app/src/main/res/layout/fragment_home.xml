@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="vm"
+            type="com.lnmcode.myweather.presentation.ui.home.HomeViewModel" />
 
     </data>
 
@@ -11,11 +16,11 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.home.HomeFragment">
 
-        <TextView
-            android:id="@+id/haha"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:orientation="horizontal" />
 
     </FrameLayout>
 </layout>
