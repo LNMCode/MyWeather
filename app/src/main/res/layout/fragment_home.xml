@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="vm"
             type="com.lnmcode.myweather.presentation.ui.home.HomeViewModel" />
@@ -21,6 +23,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}" />
 
     </FrameLayout>
 </layout>

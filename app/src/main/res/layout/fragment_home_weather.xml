@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Thang cha gia m"
-            android:text="@{vm.nameHah}" />
+            android:text="@{vm.weather.name}" />
 
         <ImageView
             android:id="@+id/iv_background"

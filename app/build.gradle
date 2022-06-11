@@ -112,6 +112,9 @@ dependencies {
     // Dexter request permission
     implementation "com.karumi:dexter:$versions.dexter"
 
+    // Services location
+    implementation "com.google.android.gms:play-services-location:$versions.services_location"
+
     // debugging
     implementation "com.jakewharton.timber:timber:$versions.timber"
 }

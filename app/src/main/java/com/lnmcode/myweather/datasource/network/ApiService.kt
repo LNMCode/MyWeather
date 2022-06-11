@@ -1,4 +1,4 @@
-package com.lnmcode.myweather.datasource.network.helper
+package com.lnmcode.myweather.datasource.network
 
 import com.lnmcode.myweather.datasource.network.model.WeatherResponse
 import retrofit2.http.GET

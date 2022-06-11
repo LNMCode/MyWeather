@@ -4,4 +4,5 @@ sealed class HomeWeatherEvents {
 
     data class LoadWeather(val locationTrigger: LocationTrigger) : HomeWeatherEvents()
 
+    object GetListLocation: HomeWeatherEvents()
 }

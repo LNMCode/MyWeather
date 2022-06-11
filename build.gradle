@@ -23,6 +23,7 @@ buildscript {
     versions.timber = '5.0.1'
     versions.viewpager2 = '1.0.0'
     versions.dexter = '6.2.3'
+    versions.services_location = '19.0.1'
 
     repositories {
         gradlePluginPortal()

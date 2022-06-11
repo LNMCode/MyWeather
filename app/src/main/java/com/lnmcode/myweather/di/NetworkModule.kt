@@ -2,7 +2,7 @@ package com.lnmcode.myweather.di
 
 import com.lnmcode.myweather.datasource.network.NetworkConnectionInterceptor
 import com.lnmcode.myweather.datasource.network.RequestInterceptor
-import com.lnmcode.myweather.datasource.network.helper.ApiService
+import com.lnmcode.myweather.datasource.network.ApiService
 import com.lnmcode.myweather.utils.BASE_URL_API
 import com.lnmcode.myweather.utils.BASE_URL_NAME
 import com.squareup.moshi.Moshi

@@ -1,6 +1,6 @@
-package com.lnmcode.myweather.datasource.usecase
+package com.lnmcode.myweather.datasource.usecase.network
 
-import com.lnmcode.myweather.datasource.network.helper.WeatherApiRepository
+import com.lnmcode.myweather.datasource.helper.network.WeatherApiRepository
 import com.lnmcode.myweather.domain.model.weather.Weather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
