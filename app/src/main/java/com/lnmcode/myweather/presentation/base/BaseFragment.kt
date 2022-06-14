@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.viewbinding.ViewBinding
+import androidx.navigation.Navigation
 
-abstract class BaseFragment<T : ViewBinding>(
+abstract class BaseFragment<T : ViewDataBinding>(
     @LayoutRes private val contentLayoutId: Int
 ) : Fragment() {
 
@@ -48,6 +49,7 @@ abstract class BaseFragment<T : ViewBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
         setUpLayout()
         setUpEvents()
     }
@@ -58,6 +60,14 @@ abstract class BaseFragment<T : ViewBinding>(
     abstract fun setUpLayout()
 
     abstract fun setUpEvents()
+
+    open fun refresh() {}
+
+    open fun navigate(action: Int) {
+        view?.let { view ->
+            Navigation.findNavController(view).navigate(action)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
