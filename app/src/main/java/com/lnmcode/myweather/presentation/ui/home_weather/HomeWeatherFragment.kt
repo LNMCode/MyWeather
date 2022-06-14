@@ -15,6 +15,6 @@ class HomeWeatherFragment(
     }
 
     override fun setUpEvents() {
-        viewModel.onTriggerEvents(HomeWeatherEvents.LoadWeather(LocationTrigger()))
+        //viewModel.onTriggerEvents(HomeWeatherEvents.LoadWeather(LocationTrigger()))
     }
 }

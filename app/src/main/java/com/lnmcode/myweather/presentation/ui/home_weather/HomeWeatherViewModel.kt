@@ -25,8 +25,9 @@ class HomeWeatherViewModel(
     private val _weather = MutableStateFlow(null as Weather?)
     val weather: StateFlow<Weather?> = _weather
 
-    private val _listLocation = MutableStateFlow(listOf<ListLocation>())
-    val listLocation: StateFlow<List<ListLocation>> = _listLocation
+    init {
+        onTriggerEvents(GetListLocation)
+    }
 
     fun onTriggerEvents(event: HomeWeatherEvents) {
         when (event) {
@@ -61,7 +62,14 @@ class HomeWeatherViewModel(
                 _isLoading.value = false
             }.collectLatest { list ->
                 Timber.d(list.size.toString())
-                _listLocation.value = list
+                val lat = list.last().lat
+                val lon = list.last().lon
+                if (lat == null || lon == null) {
+                    Timber.d("Lat lon getlistlocation is null")
+                    return@collectLatest
+                }
+                val locationTrigger = LocationTrigger(lat, lon)
+                onTriggerEvents(LoadWeather(locationTrigger))
             }
         }
     }
