@@ -117,4 +117,7 @@ dependencies {
 
     // debugging
     implementation "com.jakewharton.timber:timber:$versions.timber"
+
+    // dot indicator
+    implementation "com.tbuonomo:dotsindicator:4.3"
 }
