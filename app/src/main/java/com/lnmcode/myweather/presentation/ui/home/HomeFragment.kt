@@ -40,6 +40,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun setUpLayout() {
         setUpSlideViewPager()
+        binding {
+            vm = viewModel
+            viewpager = binding.vpHome
+        }
     }
 
     override fun setUpEvents() {

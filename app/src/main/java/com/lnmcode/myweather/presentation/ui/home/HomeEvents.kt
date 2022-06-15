@@ -6,4 +6,6 @@ sealed class HomeEvents {
 
     data class InsertLocation(val locationTrigger: LocationTrigger): HomeEvents()
 
+    object GetAllLocation: HomeEvents()
+
 }

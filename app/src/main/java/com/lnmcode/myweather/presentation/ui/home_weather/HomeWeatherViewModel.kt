@@ -19,9 +19,6 @@ class HomeWeatherViewModel(
     private val listLocationUseCase: ListLocationUseCase,
 ) : BaseViewModel() {
 
-    private val _isLoading = MutableStateFlow(false)
-    val loading: StateFlow<Boolean> = _isLoading
-
     private val _weather = MutableStateFlow(null as Weather?)
     val weather: StateFlow<Weather?> = _weather
 
@@ -41,13 +38,12 @@ class HomeWeatherViewModel(
     }
 
     private fun loadWeather(locationTrigger: LocationTrigger) {
-        _isLoading.value = true
-        viewModelScope.launch {
+        requestEvent {
             weatherUseCase.getWeatherByLatLon(
                 lat = locationTrigger.lat.toString(),
                 lon = locationTrigger.lon.toString()
             ) {
-                _isLoading.value = false
+                setLoading(false)
             }.collectLatest { weather ->
                 Timber.d(weather.name)
                 _weather.value = weather
@@ -56,10 +52,9 @@ class HomeWeatherViewModel(
     }
 
     private fun getListLocation() {
-        _isLoading.value = true
-        viewModelScope.launch {
+        requestEvent {
             listLocationUseCase.getAllLocations {
-                _isLoading.value = false
+                setLoading(false)
             }.collectLatest { list ->
                 Timber.d(list.size.toString())
                 val lat = list.last().lat

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="vm"
@@ -13,28 +13,38 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.home_weather.HomeWeatherFragment"
-        android:background="@color/purple_700">
+        android:background="@color/purple_700"
+        tools:context=".presentation.ui.home_weather.HomeWeatherFragment">
 
-        <ProgressBar
-            android:id="@+id/progress_bar_loading"
-            android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_content_view">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Thang cha gia m"
-            android:text="@{vm.weather.name}" />
+            <ProgressBar
+                android:id="@+id/progress_bar_loading"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/iv_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <include
+                layout="@layout/layout_head_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:location="@{vm.weather.name}"
+                app:temperature="@{vm.weather.main.temp.toString()}"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"/>
 
-    </FrameLayout>
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -5,17 +5,22 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="vm"
             type="com.lnmcode.myweather.presentation.ui.home.HomeViewModel" />
+
+        <variable
+            name="viewpager"
+            type="androidx.viewpager2.widget.ViewPager2" />
 
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:background="@color/purple_700"
         tools:context=".presentation.ui.home.HomeFragment">
 
         <androidx.viewpager2.widget.ViewPager2
@@ -30,6 +35,10 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}" />
+
+        <include
+            layout="@layout/layout_nav_bottom_home"
+            app:viewpager="@{viewpager}"/>
 
     </FrameLayout>
 </layout>
