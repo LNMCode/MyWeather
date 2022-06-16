@@ -1,5 +1,6 @@
 package com.lnmcode.myweather.presentation.ui.home
 
+import android.location.Location
 import androidx.lifecycle.viewModelScope
 import com.lnmcode.myweather.datasource.usecase.cache.ListLocationUseCase
 import com.lnmcode.myweather.datasource.usecase.network.WeatherUseCase
@@ -26,6 +27,10 @@ class HomeViewModel(
 
     private val _listLocation = MutableStateFlow(listOf<ListLocation>())
     val listLocation = _listLocation
+
+    init {
+        onTriggerEvents(GetAllLocation)
+    }
 
     fun onTriggerEvents(event: HomeEvents) {
         when (event) {
@@ -58,6 +63,9 @@ class HomeViewModel(
                 setLoading(false)
             }.collectLatest { list ->
                 _listLocation.value = list
+                if (list.isEmpty()) {
+                    onTriggerEvents(InsertLocation(LocationTrigger()))
+                }
             }
         }
     }

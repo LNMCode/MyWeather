@@ -57,14 +57,16 @@ class HomeWeatherViewModel(
                 setLoading(false)
             }.collectLatest { list ->
                 Timber.d(list.size.toString())
-                val lat = list.last().lat
-                val lon = list.last().lon
-                if (lat == null || lon == null) {
-                    Timber.d("Lat lon getlistlocation is null")
-                    return@collectLatest
+                if (list.isNotEmpty()) {
+                    val lat = list.last().lat
+                    val lon = list.last().lon
+                    if (lat == null || lon == null) {
+                        Timber.d("Lat lon getlistlocation is null")
+                        return@collectLatest
+                    }
+                    val locationTrigger = LocationTrigger(lat, lon)
+                    onTriggerEvents(LoadWeather(locationTrigger))
                 }
-                val locationTrigger = LocationTrigger(lat, lon)
-                onTriggerEvents(LoadWeather(locationTrigger))
             }
         }
     }
