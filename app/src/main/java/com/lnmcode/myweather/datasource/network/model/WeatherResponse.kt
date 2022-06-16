@@ -1,7 +1,10 @@
 package com.lnmcode.myweather.datasource.network.model
 
+import com.lnmcode.myweather.datasource.cache.entities.holder.WeatherItemEntityHolder
+import com.lnmcode.myweather.datasource.cache.entities.weather.WeatherEntity
 import com.lnmcode.myweather.mapper.DomainMapper
 import com.lnmcode.myweather.domain.model.weather.Weather
+import com.lnmcode.myweather.mapper.EntityMapper
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -48,7 +51,7 @@ data class WeatherResponse(
 
     @field:Json(name="wind")
 	val wind: WindDto ? = null
-): DomainMapper<Weather> {
+): DomainMapper<Weather>, EntityMapper<WeatherEntity> {
     override fun toDomain() = Weather(
         rain = rain?.toDomain(),
         visibility = visibility,
@@ -64,6 +67,23 @@ data class WeatherResponse(
         id = id,
         base = base,
         wind = wind?.toDomain(),
+    )
+
+    override fun toEntity() = WeatherEntity(
+        rainEntity = rain?.toDomain()?.toEntity(),
+        visibility = visibility,
+        timezone = timezone,
+        mainEntity = main?.toDomain()?.toEntity(),
+        cloudsEntity = clouds?.toDomain()?.toEntity(),
+        sysEntity = sys?.toDomain()?.toEntity(),
+        dt = dt,
+        coordEntity = coord?.toDomain()?.toEntity(),
+        weatherItemHolder = WeatherItemEntityHolder(weather?.map { it?.toDomain()?.toEntity() }),
+        name = name,
+        cod = cod,
+        id = id,
+        base = base,
+        windEntity = wind?.toDomain()?.toEntity(),
     )
 }
 

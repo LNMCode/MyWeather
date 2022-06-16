@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="location"
+            type="String" />
+
+        <variable
+            name="temperature"
+            type="String" />
+
+        <variable
+            name="state"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_location"
+            style="@style/Theme.MyWeather.TextHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{location}"
+            android:textSize="@dimen/text_size_location_head"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Viet Nam" />
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            style="@style/Theme.MyWeather.TextHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{temperature + '\u2103'}"
+            android:textSize="@dimen/text_size_temperature_head"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="31\u2103" />
+
+        <TextView
+            android:id="@+id/tv_weather_state"
+            style="@style/Theme.MyWeather.TextHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{state}"
+            android:textSize="@dimen/text_size_state_weather_head"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sunny" />
+
+    </LinearLayout>
+</layout>

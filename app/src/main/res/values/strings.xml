@@ -2,4 +2,16 @@
     <string name="app_name">MyWeather</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ic_choose_list_location">icon choose list location</string>
+    <string name="image_weather_item">Image weather item</string>
+
+    <string name="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</string>
+
+    <string name="title_item_weather_visibility">Visibility</string>
+    <string name="title_item_weather_visibility_des">Sương mỳ nhẹ mỏng làm giảm tầm nhìn</string>
+    <string name="title_item_weather_feel_like">Feel like</string>
+    <string name="title_item_weather_feel_like_des">Độ ẩm đang khiến bạn cảm thấy nóng hơn</string>
+    <string name="title_item_weather_humidity">humidity</string>
+    <string name="title_item_weather_humidity_des">Độ ẩm trong không khí ngay lúc này</string>
+    <string name="title_item_weather_pressure">pressure</string>
 </resources>

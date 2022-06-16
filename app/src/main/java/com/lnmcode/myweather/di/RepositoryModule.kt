@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<WeatherApiRepository> { WeatherApiRepositoryImpl(get()) }
+    single<WeatherApiRepository> { WeatherApiRepositoryImpl(get(), get()) }
 
     single<ListLocationRepository> { ListLocationRepositoryImpl(get()) }
 }

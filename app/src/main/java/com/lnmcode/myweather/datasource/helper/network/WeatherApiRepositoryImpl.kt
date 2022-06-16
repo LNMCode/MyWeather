@@ -1,5 +1,6 @@
 package com.lnmcode.myweather.datasource.helper.network
 
+import com.lnmcode.myweather.datasource.cache.dao.WeatherDao
 import com.lnmcode.myweather.datasource.network.ApiService
 import com.lnmcode.myweather.datasource.network.model.WeatherResponse
 import kotlinx.coroutines.CoroutineDispatcher
@@ -8,6 +9,7 @@ import kotlinx.coroutines.withContext
 
 class WeatherApiRepositoryImpl(
     private val apiService: ApiService,
+    private val weatherDao: WeatherDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : WeatherApiRepository {
     override suspend fun getWeatherById(
@@ -22,7 +24,9 @@ class WeatherApiRepositoryImpl(
         lat: String,
         lon: String,
     ): WeatherResponse = withContext(ioDispatcher) {
-        return@withContext apiService.getWeatherByLatLon(lat = lat, lon = lon)
+        val weatherResponse = apiService.getWeatherByLatLon(lat = lat, lon = lon)
+        weatherDao.insertWeather(weatherResponse.toDomain().toEntity())
+        return@withContext weatherResponse
     }
 
 }

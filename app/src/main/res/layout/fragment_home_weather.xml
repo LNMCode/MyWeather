@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="vm"
@@ -13,28 +13,111 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.home_weather.HomeWeatherFragment"
-        android:background="@color/purple_700">
+        app:loadBackgroundWeatherState="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+        tools:background="@color/purple_700"
+        tools:context=".presentation.ui.home_weather.HomeWeatherFragment">
 
-        <ProgressBar
-            android:id="@+id/progress_bar_loading"
-            android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_content_view">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Thang cha gia m"
-            android:text="@{vm.weather.name}" />
+            <ProgressBar
+                android:id="@+id/progress_bar_loading"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/iv_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <include
+                android:id="@+id/layout_head_weather"
+                layout="@layout/layout_head_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:location="@{vm.weather.name}"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:temperature="@{vm.weather.main.temp.toString()}" />
 
-    </FrameLayout>
+            <include
+                android:id="@+id/include"
+                layout="@layout/layout_item_weather_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_head_weather"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}" />
+
+            <include
+                android:id="@+id/item_visibility"
+                layout="@layout/layout_item_weather_visibility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/include"
+                app:layout_constraintTop_toBottomOf="@+id/include"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.visibility}" />
+
+            <include
+                android:id="@+id/include4"
+                layout="@layout/layout_item_weather_feellike"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginStart="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/include"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/include"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.main.feelsLike}" />
+
+            <include
+                android:id="@+id/include2"
+                layout="@layout/layout_item_weather_humidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/item_visibility"
+                app:layout_constraintTop_toBottomOf="@+id/item_visibility"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.main.humidity}" />
+
+            <include
+                layout="@layout/layout_item_weather_pressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginStart="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/include4"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/include4"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.main.pressure}" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>

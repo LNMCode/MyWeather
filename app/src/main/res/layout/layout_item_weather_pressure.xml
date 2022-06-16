@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="value"
+            type="Integer" />
+
+        <variable
+            name="state"
+            type="String" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:loadBackgroundItemWeather="@{state}"
+        tools:background="@color/black">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/size_item_weather"
+            android:layout_height="@dimen/size_item_weather"
+            android:padding="@dimen/padding_item_home_weather">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/icon_size_item_weather"
+                android:contentDescription="@string/image_weather_item"
+                android:layout_height="@dimen/icon_size_item_weather"
+                android:src="@drawable/icon_weather_temp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/title_item_weather_pressure"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+                app:layout_constraintStart_toEndOf="@id/iv_icon"
+                app:layout_constraintTop_toTopOf="@+id/iv_icon" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{value + "hPa"}'
+                android:textSize="@dimen/text_size_item_home_weather"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+                tools:text="34'\u2103" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

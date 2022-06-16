@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_content_view">15dp</dimen>
+    <dimen name="padding_item_home_weather">10dp</dimen>
+
+    <dimen name="text_size_location_head">30sp</dimen>
+    <dimen name="text_size_temperature_head">40sp</dimen>
+    <dimen name="text_size_state_weather_head">25sp</dimen>
+    <dimen name="text_size_item_home_weather">25sp</dimen>
+
+    <dimen name="margin_divider">10dp</dimen>
+    <dimen name="margin_item_home_weather">15dp</dimen>
+    <dimen name="corner_size_item_home_weather">10dp</dimen>
+    <dimen name="icon_size_item_weather">30dp</dimen>
+    <dimen name="size_item_weather">180dp</dimen>
+
+
+</resources>
