@@ -41,12 +41,12 @@
             style="@style/Theme.MyWeather.TextHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{temperature}"
+            android:text="@{temperature + '\u2103'}"
             android:textSize="@dimen/text_size_temperature_head"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="31*" />
+            tools:text="31\u2103" />
 
         <TextView
             android:id="@+id/tv_weather_state"

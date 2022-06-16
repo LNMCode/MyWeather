@@ -11,4 +11,15 @@
 
     <color name="dot_button_enabled">#FFFFFF</color>
     <color name="dot_button_disabled">#757575</color>
+    
+    <!--color background based on weather state-->
+    <color name="clear_sky">#CCBB86FC</color>
+    <color name="few_clouds">#CCB8A029</color>
+    <color name="scattered_clouds">#CCDA1359</color>
+    <color name="broken_clouds">#CC72DA26</color>
+    <color name="shower_rain">#CC3F60D6</color>
+    <color name="rain">#CCA3100A</color>
+    <color name="thunderstorm">#CCF47E00</color>
+    <color name="snow">#CCE0A4E3</color>
+    <color name="mist">#CCB8A029</color>
 </resources>

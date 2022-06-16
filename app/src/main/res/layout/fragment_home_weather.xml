@@ -16,12 +16,14 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple_700"
+        app:loadBackgroundWeatherState="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+        tools:background="@color/purple_700"
         tools:context=".presentation.ui.home_weather.HomeWeatherFragment">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"
             android:orientation="vertical"
             android:padding="@dimen/padding_content_view">
 
@@ -36,15 +38,86 @@
                 tools:visibility="gone" />
 
             <include
+                android:id="@+id/layout_head_weather"
                 layout="@layout/layout_head_weather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:location="@{vm.weather.name}"
-                app:temperature="@{vm.weather.main.temp.toString()}"
-                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"/>
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:temperature="@{vm.weather.main.temp.toString()}" />
 
-        </RelativeLayout>
+            <include
+                android:id="@+id/include"
+                layout="@layout/layout_item_weather_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_head_weather"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}" />
+
+            <include
+                android:id="@+id/item_visibility"
+                layout="@layout/layout_item_weather_visibility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/include"
+                app:layout_constraintTop_toBottomOf="@+id/include"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.visibility}" />
+
+            <include
+                android:id="@+id/include4"
+                layout="@layout/layout_item_weather_feellike"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginStart="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/include"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/include"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.main.feelsLike}" />
+
+            <include
+                android:id="@+id/include2"
+                layout="@layout/layout_item_weather_humidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/item_visibility"
+                app:layout_constraintTop_toBottomOf="@+id/item_visibility"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.main.humidity}" />
+
+            <include
+                layout="@layout/layout_item_weather_pressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_item_home_weather"
+                android:layout_marginStart="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/include4"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/include4"
+                app:state="@{vm.weather.weather.empty == false ? vm.weather.weather.get(0).main : null}"
+                app:value="@{vm.weather.main.pressure}" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 </layout>
