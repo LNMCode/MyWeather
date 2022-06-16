@@ -6,4 +6,6 @@ interface ListLocationRepository {
     suspend fun insertLocation(locationEntity: ListLocationEntity): Long
 
     suspend fun getAllLocations(): List<ListLocationEntity>
+
+    suspend fun getLocation(id: Int): ListLocationEntity
 }
