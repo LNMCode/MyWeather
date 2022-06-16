@@ -15,13 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:cardCornerRadius="@dimen/corner_size_item_home_weather">
+        app:cardCornerRadius="@dimen/corner_size_item_home_weather"
+        app:loadBackgroundItemWeather="@{state}"
+        tools:background="@color/black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:loadBackgroundItemWeather="@{state}"
-            tools:background="@color/black">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_des"

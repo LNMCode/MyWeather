@@ -3,6 +3,7 @@ package com.lnmcode.myweather.presentation.binding
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.card.MaterialCardView
 import com.lnmcode.myweather.presentation.ui.home_weather.HomeWeatherStateWeather
 
 object ComponentBinding {
@@ -16,9 +17,9 @@ object ComponentBinding {
 
     @JvmStatic
     @BindingAdapter("loadBackgroundItemWeather")
-    fun bindBackgroundItemWeather(view: ConstraintLayout, state: String?) {
+    fun bindBackgroundItemWeather(view: MaterialCardView, state: String?) {
         setBackgroundByState(state) {
-            view.setBackgroundColor(it.colorItem)
+            view.setCardBackgroundColor(it.colorItem)
         }
     }
 
