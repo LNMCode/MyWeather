@@ -1,9 +1,7 @@
 package com.lnmcode.myweather.presentation.ui.home_weather
 
-import androidx.lifecycle.viewModelScope
 import com.lnmcode.myweather.datasource.usecase.cache.ListLocationUseCase
 import com.lnmcode.myweather.datasource.usecase.network.WeatherUseCase
-import com.lnmcode.myweather.domain.model.list_location.ListLocation
 import com.lnmcode.myweather.domain.model.weather.Weather
 import com.lnmcode.myweather.presentation.base.BaseViewModel
 import com.lnmcode.myweather.presentation.ui.home_weather.HomeWeatherEvents.GetListLocation
@@ -11,7 +9,6 @@ import com.lnmcode.myweather.presentation.ui.home_weather.HomeWeatherEvents.Load
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class HomeWeatherViewModel(
@@ -22,17 +19,13 @@ class HomeWeatherViewModel(
     private val _weather = MutableStateFlow(null as Weather?)
     val weather: StateFlow<Weather?> = _weather
 
-    init {
-        onTriggerEvents(GetListLocation)
-    }
-
     fun onTriggerEvents(event: HomeWeatherEvents) {
         when (event) {
             is LoadWeather -> {
                 loadWeather(event.locationTrigger)
             }
             is GetListLocation -> {
-                getListLocation()
+                getListLocation(event.position)
             }
         }
     }
@@ -51,22 +44,20 @@ class HomeWeatherViewModel(
         }
     }
 
-    private fun getListLocation() {
+    private fun getListLocation(position: Int) {
         requestEvent {
-            listLocationUseCase.getAllLocations {
+            listLocationUseCase.getLocation(id = position) {
                 setLoading(false)
             }.collectLatest { list ->
-                Timber.d(list.size.toString())
-                if (list.isNotEmpty()) {
-                    val lat = list.last().lat
-                    val lon = list.last().lon
-                    if (lat == null || lon == null) {
-                        Timber.d("Lat lon getlistlocation is null")
-                        return@collectLatest
-                    }
-                    val locationTrigger = LocationTrigger(lat, lon)
-                    onTriggerEvents(LoadWeather(locationTrigger))
+                Timber.d(list.toString())
+                val lat = list.lat
+                val lon = list.lon
+                if (lat == null || lon == null) {
+                    Timber.d("Lat lon getlistlocation is null")
+                    return@collectLatest
                 }
+                val locationTrigger = LocationTrigger(lat, lon)
+                onTriggerEvents(LoadWeather(locationTrigger))
             }
         }
     }

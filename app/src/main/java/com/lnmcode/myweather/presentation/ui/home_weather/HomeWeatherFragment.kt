@@ -6,6 +6,7 @@ import com.lnmcode.myweather.presentation.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeWeatherFragment(
+    private val position: Int,
 ) : BaseFragment<FragmentHomeWeatherBinding>(R.layout.fragment_home_weather) {
 
     override val viewModel: HomeWeatherViewModel by viewModel()
@@ -15,6 +16,6 @@ class HomeWeatherFragment(
     }
 
     override fun setUpEvents() {
-        //viewModel.onTriggerEvents(HomeWeatherEvents.LoadWeather(LocationTrigger()))
+        viewModel.onTriggerEvents(HomeWeatherEvents.GetListLocation(position+1))
     }
 }

@@ -5,9 +5,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.lnmcode.myweather.presentation.ui.home_weather.HomeWeatherFragment
 
 class HomeSlidePagerAdapter(
-    fa: Fragment
+    fa: Fragment,
+    private val numberItemCount: Int,
 ) : FragmentStateAdapter(fa) {
-    override fun getItemCount() = 5
+    override fun getItemCount() = numberItemCount
 
-    override fun createFragment(position: Int) = HomeWeatherFragment()
+    override fun createFragment(position: Int) = HomeWeatherFragment(position)
 }

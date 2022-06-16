@@ -50,8 +50,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun setUpSlideViewPager() {
-        val slideAdapter = HomeSlidePagerAdapter(this)
-        binding.vpHome.adapter = slideAdapter
+        // Init slide pager adapter
+        var adapter = HomeSlidePagerAdapter(this, 1)
+        binding.vpHome.adapter = adapter
+        // update view by livedata
+        viewModel.numberItemCount.observe(viewLifecycleOwner) { number ->
+            adapter = HomeSlidePagerAdapter(this, number)
+            binding.vpHome.adapter = adapter
+        }
     }
 
     private fun configUIPermission() {
@@ -78,7 +84,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun locationCallbackTrigger(locationTrigger: LocationTrigger) {
-        viewModel.onTriggerEvents(InsertLocation(locationTrigger))
+        viewModel.onTriggerEvents(InsertLocation(locationTrigger, isCurrentLocation = true))
     }
 
     private fun requestPermission() {

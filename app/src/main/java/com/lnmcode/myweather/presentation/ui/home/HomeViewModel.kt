@@ -1,6 +1,8 @@
 package com.lnmcode.myweather.presentation.ui.home
 
 import android.location.Location
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.lnmcode.myweather.datasource.usecase.cache.ListLocationUseCase
 import com.lnmcode.myweather.datasource.usecase.network.WeatherUseCase
@@ -28,6 +30,9 @@ class HomeViewModel(
     private val _listLocation = MutableStateFlow(listOf<ListLocation>())
     val listLocation = _listLocation
 
+    private val _numberItemCount = MutableLiveData<Int>()
+    val numberItemCount: LiveData<Int> = _numberItemCount
+
     init {
         onTriggerEvents(GetAllLocation)
     }
@@ -35,7 +40,7 @@ class HomeViewModel(
     fun onTriggerEvents(event: HomeEvents) {
         when (event) {
             is InsertLocation -> {
-                insertLocation(event.locationTrigger)
+                insertLocation(event.locationTrigger, event.isCurrentLocation)
             }
             is GetAllLocation -> {
                 getAllLocation()
@@ -43,9 +48,13 @@ class HomeViewModel(
         }
     }
 
-    private fun insertLocation(locationTrigger: LocationTrigger) {
+    private fun insertLocation(locationTrigger: LocationTrigger, isCurrentLocation: Boolean) {
         requestEvent {
-            val listLocation = ListLocation(lat = locationTrigger.lat, lon = locationTrigger.lon)
+            val listLocation = ListLocation(
+                lat = locationTrigger.lat,
+                lon = locationTrigger.lon,
+                isCurrentLocation = isCurrentLocation
+            )
             listLocationUseCase.insertLocation(
                 listLocation = listLocation
             ) {
@@ -63,8 +72,9 @@ class HomeViewModel(
                 setLoading(false)
             }.collectLatest { list ->
                 _listLocation.value = list
+                _numberItemCount.value = list.size
                 if (list.isEmpty()) {
-                    onTriggerEvents(InsertLocation(LocationTrigger()))
+                    onTriggerEvents(InsertLocation(LocationTrigger(), isCurrentLocation = false))
                 }
             }
         }
