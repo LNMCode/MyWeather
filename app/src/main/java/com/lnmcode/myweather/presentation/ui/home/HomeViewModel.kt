@@ -9,8 +9,7 @@ import com.lnmcode.myweather.datasource.usecase.network.WeatherUseCase
 import com.lnmcode.myweather.domain.model.list_location.ListLocation
 import com.lnmcode.myweather.domain.model.weather.Weather
 import com.lnmcode.myweather.presentation.base.BaseViewModel
-import com.lnmcode.myweather.presentation.ui.home.HomeEvents.GetAllLocation
-import com.lnmcode.myweather.presentation.ui.home.HomeEvents.InsertLocation
+import com.lnmcode.myweather.presentation.ui.home.HomeEvents.*
 import com.lnmcode.myweather.presentation.ui.home_weather.HomeWeatherEvents
 import com.lnmcode.myweather.presentation.ui.home_weather.LocationTrigger
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,6 +44,9 @@ class HomeViewModel(
             is GetAllLocation -> {
                 getAllLocation()
             }
+            is InsertOrUpdateCurrentLocation -> {
+                insertOrUpdateCurrentLocation(event.locationTrigger)
+            }
         }
     }
 
@@ -77,6 +79,24 @@ class HomeViewModel(
                 }
                 _listLocation.value = list
                 _numberItemCount.value = list.size
+            }
+        }
+    }
+
+    private fun insertOrUpdateCurrentLocation(locationTrigger: LocationTrigger) {
+        requestEvent {
+            val listLocation = ListLocation(
+                lat = locationTrigger.lat,
+                lon = locationTrigger.lon,
+                isCurrentLocation = true
+            )
+            listLocationUseCase.insertOrUpdateLocation(
+                listLocation = listLocation
+            ) {
+                setLoading(false)
+            }.collectLatest { result ->
+                Timber.d(result.toString())
+                onTriggerEvents(GetAllLocation)
             }
         }
     }

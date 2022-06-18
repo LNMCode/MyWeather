@@ -5,19 +5,14 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
 import androidx.core.location.LocationManagerCompat
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.material.snackbar.Snackbar
 import com.lnmcode.myweather.R
 import com.lnmcode.myweather.databinding.FragmentHomeBinding
 import com.lnmcode.myweather.presentation.base.BaseFragment
-import com.lnmcode.myweather.presentation.ui.home.HomeEvents.InsertLocation
+import com.lnmcode.myweather.presentation.ui.home.HomeEvents.InsertOrUpdateCurrentLocation
 import com.lnmcode.myweather.presentation.ui.home_weather.LocationTrigger
 import com.lnmcode.myweather.utils.DialogUtils
-import com.lnmcode.myweather.utils.LocationUtils.createLocationCallback
-import com.lnmcode.myweather.utils.LocationUtils.createLocationRequest
-import com.lnmcode.myweather.utils.LocationUtils.getFusedLocationProvider
-import com.lnmcode.myweather.utils.LocationUtils.removeLocationServiceProvider
-import com.lnmcode.myweather.utils.LocationUtils.startLocationServiceProvider
+import com.lnmcode.myweather.utils.LocationUtils.locationUpdatesChanged
 import com.lnmcode.myweather.utils.PermissionUtils
 import com.lnmcode.myweather.utils.PermissionUtils.arePermissionGranted
 import com.lnmcode.myweather.utils.PermissionUtils.locationPermission
@@ -36,11 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         )
     }
 
-    private val locationCallBack by lazy { createLocationCallback { insertLocationTrigger(it) } }
-
-    private val locationRequest by lazy { createLocationRequest() }
-
-    private lateinit var fusedLocation: FusedLocationProviderClient
+    private lateinit var locationManager: LocationManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,31 +70,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun startLocationService() {
-        fusedLocation  = getFusedLocationProvider(requireContext())
-        startLocationServiceProvider(
-            fusedLocationServices = fusedLocation,
-            locationRequest = locationRequest,
-            locationCallback = locationCallBack
-        )
-        fusedLocation.lastLocation.addOnCompleteListener {
-            insertLocationTrigger(LocationTrigger(it.result.latitude, it.result.longitude))
+        locationUpdatesChanged(locationManager) {
+            insertOrUpdateCurrentLocation(it)
         }
     }
 
-    private fun removeLocationService() {
-        removeLocationServiceProvider(
-            context = requireContext(),
-            locationCallback = locationCallBack
-        )
-    }
-
-    private fun insertLocationTrigger(locationTrigger: LocationTrigger) {
-        viewModel.onTriggerEvents(InsertLocation(locationTrigger, isCurrentLocation = true))
+    private fun insertOrUpdateCurrentLocation(locationTrigger: LocationTrigger) {
+        viewModel.onTriggerEvents(InsertOrUpdateCurrentLocation(locationTrigger))
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager =
-            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return LocationManagerCompat.isLocationEnabled(locationManager)
     }
 
@@ -126,11 +103,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun onPermissionDenied() {
         Snackbar.make(requireView(), "Permission denied", Snackbar.LENGTH_LONG).show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        removeLocationService()
     }
 
 }

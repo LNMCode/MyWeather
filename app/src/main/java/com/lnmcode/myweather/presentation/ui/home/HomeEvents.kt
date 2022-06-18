@@ -9,6 +9,10 @@ sealed class HomeEvents {
         val isCurrentLocation: Boolean
     ) : HomeEvents()
 
+    data class InsertOrUpdateCurrentLocation(
+        val locationTrigger: LocationTrigger,
+    ) : HomeEvents()
+
     object GetAllLocation : HomeEvents()
 
 }

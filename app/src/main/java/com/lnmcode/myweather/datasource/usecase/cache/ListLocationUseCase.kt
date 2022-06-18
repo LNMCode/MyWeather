@@ -10,6 +10,12 @@ interface ListLocationUseCase {
     suspend fun insertLocation(listLocation: ListLocation, onSuccess: () -> Unit): Flow<Long>
 
     @WorkerThread
+    suspend fun insertOrUpdateLocation(
+        listLocation: ListLocation,
+        onSuccess: () -> Unit
+    ): Flow<Boolean>
+
+    @WorkerThread
     suspend fun getAllLocations(onSuccess: () -> Unit): Flow<List<ListLocation>>
 
     @WorkerThread
