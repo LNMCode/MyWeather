@@ -39,7 +39,7 @@ class HomeViewModel(
     fun onTriggerEvents(event: HomeEvents) {
         when (event) {
             is InsertLocation -> {
-                insertLocation(event.locationTrigger, event.isCurrentLocation)
+                insertLocation(event.locationTrigger, event.order, event.isCurrentLocation)
             }
             is GetAllLocation -> {
                 getAllLocation()
@@ -50,11 +50,16 @@ class HomeViewModel(
         }
     }
 
-    private fun insertLocation(locationTrigger: LocationTrigger, isCurrentLocation: Boolean) {
+    private fun insertLocation(
+        locationTrigger: LocationTrigger,
+        order: Int,
+        isCurrentLocation: Boolean
+    ) {
         requestEvent {
             val listLocation = ListLocation(
                 lat = locationTrigger.lat,
                 lon = locationTrigger.lon,
+                order = order,
                 isCurrentLocation = isCurrentLocation
             )
             listLocationUseCase.insertLocation(
@@ -75,7 +80,13 @@ class HomeViewModel(
                 setLoading(false)
             }.collectLatest { list ->
                 if (list.isEmpty()) {
-                    onTriggerEvents(InsertLocation(LocationTrigger(), isCurrentLocation = false))
+                    onTriggerEvents(
+                        InsertLocation(
+                            LocationTrigger(),
+                            order = 1,
+                            isCurrentLocation = false
+                        )
+                    )
                 }
                 _listLocation.value = list
                 _numberItemCount.value = list.size

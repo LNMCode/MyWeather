@@ -6,9 +6,9 @@ import com.lnmcode.myweather.presentation.ui.home_weather.HomeWeatherFragment
 
 class HomeSlidePagerAdapter(
     fa: Fragment,
-    private val numberItemCount: Int,
+    private val listIdLocation: List<Int?>,
 ) : FragmentStateAdapter(fa) {
-    override fun getItemCount() = numberItemCount
+    override fun getItemCount() = listIdLocation.size
 
-    override fun createFragment(position: Int) = HomeWeatherFragment(position)
+    override fun createFragment(position: Int) = HomeWeatherFragment(listIdLocation[position] ?: 1)
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ee42a67615f62733077ad29b41a43ed6",
+    "identityHash": "e7dfd182842b333320ce3b21a26d8b3a",
     "entities": [
       {
         "tableName": "weather",
@@ -188,7 +188,7 @@
       },
       {
         "tableName": "locations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `lat` REAL, `lon` REAL, `is_current_location` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `lat` REAL, `lon` REAL, `order` INTEGER NOT NULL, `is_current_location` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -207,6 +207,12 @@
             "columnName": "lon",
             "affinity": "REAL",
             "notNull": false
+          },
+          {
+            "fieldPath": "order",
+            "columnName": "order",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "isCurrentLocation",
@@ -228,7 +234,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee42a67615f62733077ad29b41a43ed6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e7dfd182842b333320ce3b21a26d8b3a')"
     ]
   }
 }

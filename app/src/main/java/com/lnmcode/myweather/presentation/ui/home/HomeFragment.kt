@@ -51,13 +51,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun setUpSlideViewPager() {
         // Init slide pager adapter
-        var adapter = HomeSlidePagerAdapter(this, 1)
+        var adapter = HomeSlidePagerAdapter(this, listOf())
         binding.vpHome.adapter = adapter
         // update view by livedata
-        viewModel.numberItemCount.observe(viewLifecycleOwner) { number ->
-            adapter = HomeSlidePagerAdapter(this, number)
-            binding.vpHome.adapter = adapter
-            binding.navBottom.dotsIndicator.attachTo(binding.vpHome)
+        viewModel.numberItemCount.observe(viewLifecycleOwner) {
+            val listIdLocation = viewModel.listLocation.value
+            if (listIdLocation.isNotEmpty()) {
+                val listOrdered = listIdLocation.sortedBy { it.order }.map { it.id }
+                adapter = HomeSlidePagerAdapter(this, listOrdered)
+                binding.vpHome.adapter = adapter
+                binding.navBottom.dotsIndicator.attachTo(binding.vpHome)
+            }
         }
     }
 
