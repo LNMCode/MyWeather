@@ -19,9 +19,29 @@ class ListLocationUseCaseImpl(
         Timber.e(e.message)
     }
 
+    override suspend fun insertOrUpdateLocation(
+        listLocation: ListLocation,
+        onSuccess: () -> Unit
+    ): Flow<Boolean> = flow {
+        listLocationRepository.insertOrUpdateCurrentLocation(listLocation.toEntity())
+        emit(true)
+    }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO).catch { e ->
+        Timber.e(e.message)
+    }
+
     override suspend fun getAllLocations(onSuccess: () -> Unit): Flow<List<ListLocation>> = flow {
         val listWeathers = listLocationRepository.getAllLocations()
         emit(listWeathers.map { it.toDomain() })
+    }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO).catch { e ->
+        Timber.e(e.message)
+    }
+
+    override suspend fun getLocation(id: Int, onSuccess: () -> Unit): Flow<ListLocation?> = flow {
+        val listWeather = listLocationRepository.getLocation(id)
+        if (listWeather != null) {
+            emit(listWeather.toDomain())
+        }
+        emit(null)
     }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO).catch { e ->
         Timber.e(e.message)
     }

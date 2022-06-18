@@ -14,4 +14,8 @@
     <string name="title_item_weather_humidity">humidity</string>
     <string name="title_item_weather_humidity_des">Độ ẩm trong không khí ngay lúc này</string>
     <string name="title_item_weather_pressure">pressure</string>
+
+    <string name="dialog_message_turn_on_location_service">Please turn on location service</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_ok">Ok</string>
 </resources>

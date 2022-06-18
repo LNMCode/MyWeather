@@ -1,21 +1,23 @@
 package com.lnmcode.myweather.presentation.ui.home
 
+import android.content.Context
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
+import androidx.core.location.LocationManagerCompat
 import com.google.android.material.snackbar.Snackbar
 import com.lnmcode.myweather.R
 import com.lnmcode.myweather.databinding.FragmentHomeBinding
 import com.lnmcode.myweather.presentation.base.BaseFragment
-import com.lnmcode.myweather.presentation.ui.home.HomeEvents.InsertLocation
+import com.lnmcode.myweather.presentation.ui.home.HomeEvents.InsertOrUpdateCurrentLocation
 import com.lnmcode.myweather.presentation.ui.home_weather.LocationTrigger
-import com.lnmcode.myweather.utils.LocationUtils.createLocationCallback
-import com.lnmcode.myweather.utils.LocationUtils.createLocationRequest
-import com.lnmcode.myweather.utils.LocationUtils.removeLocationServiceProvider
-import com.lnmcode.myweather.utils.LocationUtils.startLocationServiceProvider
+import com.lnmcode.myweather.utils.DialogUtils
+import com.lnmcode.myweather.utils.LocationUtils.locationUpdatesChanged
 import com.lnmcode.myweather.utils.PermissionUtils
 import com.lnmcode.myweather.utils.PermissionUtils.arePermissionGranted
 import com.lnmcode.myweather.utils.PermissionUtils.locationPermission
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
@@ -29,9 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         )
     }
 
-    private val locationCallBack by lazy { createLocationCallback { locationCallbackTrigger(it) } }
-
-    private val locationRequest by lazy { createLocationRequest() }
+    private lateinit var locationManager: LocationManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,8 +50,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun setUpSlideViewPager() {
-        val slideAdapter = HomeSlidePagerAdapter(this)
-        binding.vpHome.adapter = slideAdapter
+        // Init slide pager adapter
+        var adapter = HomeSlidePagerAdapter(this, listOf())
+        binding.vpHome.adapter = adapter
+        // update view by livedata
+        viewModel.numberItemCount.observe(viewLifecycleOwner) {
+            val listIdLocation = viewModel.listLocation.value
+            if (listIdLocation.isNotEmpty()) {
+                val listOrdered = listIdLocation.sortedBy { it.order }.map { it.id }
+                adapter = HomeSlidePagerAdapter(this, listOrdered)
+                binding.vpHome.adapter = adapter
+                binding.navBottom.dotsIndicator.attachTo(binding.vpHome)
+            }
+        }
     }
 
     private fun configUIPermission() {
@@ -63,22 +74,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun startLocationService() {
-        startLocationServiceProvider(
-            context = requireContext(),
-            locationRequest = locationRequest,
-            locationCallback = locationCallBack
-        )
+        locationUpdatesChanged(locationManager) {
+            insertOrUpdateCurrentLocation(it)
+        }
     }
 
-    private fun removeLocationService() {
-        removeLocationServiceProvider(
-            context = requireContext(),
-            locationCallback = locationCallBack
-        )
+    private fun insertOrUpdateCurrentLocation(locationTrigger: LocationTrigger) {
+        viewModel.onTriggerEvents(InsertOrUpdateCurrentLocation(locationTrigger))
     }
 
-    private fun locationCallbackTrigger(locationTrigger: LocationTrigger) {
-        viewModel.onTriggerEvents(InsertLocation(locationTrigger))
+    private fun isLocationEnabled(): Boolean {
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return LocationManagerCompat.isLocationEnabled(locationManager)
     }
 
     private fun requestPermission() {
@@ -90,16 +97,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun onPermissionGranted() {
-        startLocationService()
+        if (isLocationEnabled()) {
+            startLocationService()
+        } else {
+            Timber.d("Location service disabled")
+            DialogUtils.showDialog(requireActivity())
+        }
     }
 
     private fun onPermissionDenied() {
         Snackbar.make(requireView(), "Permission denied", Snackbar.LENGTH_LONG).show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        removeLocationService()
     }
 
 }

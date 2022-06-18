@@ -18,12 +18,17 @@ data class ListLocationEntity(
     @ColumnInfo(name = "lon")
     val lon: Double? = null,
 
+    @ColumnInfo(name = "order")
+    val order: Int = 0,
+
     @ColumnInfo(name = "is_current_location")
     val isCurrentLocation: Boolean = true,
 ) : DomainMapper<ListLocation> {
     override fun toDomain() = ListLocation(
+        id = id,
         lat = lat,
         lon = lon,
+        order = order,
         isCurrentLocation = isCurrentLocation,
     )
 

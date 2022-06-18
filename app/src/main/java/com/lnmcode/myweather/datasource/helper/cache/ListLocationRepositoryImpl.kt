@@ -12,13 +12,25 @@ class ListLocationRepositoryImpl(
 ) : ListLocationRepository {
     override suspend fun insertLocation(locationEntity: ListLocationEntity): Long {
         return withContext(ioDispatcher) {
-            listLocationDao . insertLocation (locationEntity)
+            listLocationDao.insertLocation(locationEntity)
+        }
+    }
+
+    override suspend fun insertOrUpdateCurrentLocation(locationEntity: ListLocationEntity) {
+        return withContext(ioDispatcher) {
+            listLocationDao.insertOrUpdateCurrentLocation(locationEntity)
         }
     }
 
     override suspend fun getAllLocations(): List<ListLocationEntity> {
         return withContext(ioDispatcher) {
             listLocationDao.getAllLocations()
+        }
+    }
+
+    override suspend fun getLocation(id: Int): ListLocationEntity? {
+        return withContext(ioDispatcher) {
+            listLocationDao.getLocation(id)
         }
     }
 }
