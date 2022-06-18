@@ -7,5 +7,5 @@ interface ListLocationRepository {
 
     suspend fun getAllLocations(): List<ListLocationEntity>
 
-    suspend fun getLocation(id: Int): ListLocationEntity
+    suspend fun getLocation(id: Int): ListLocationEntity?
 }

@@ -62,6 +62,7 @@ class HomeViewModel(
             }.collectLatest { result ->
                 Timber.d(result.toString())
                 _resultInsertLocation.value = result.toInt()
+                onTriggerEvents(GetAllLocation)
             }
         }
     }
@@ -71,11 +72,11 @@ class HomeViewModel(
             listLocationUseCase.getAllLocations {
                 setLoading(false)
             }.collectLatest { list ->
-                _listLocation.value = list
-                _numberItemCount.value = list.size
                 if (list.isEmpty()) {
                     onTriggerEvents(InsertLocation(LocationTrigger(), isCurrentLocation = false))
                 }
+                _listLocation.value = list
+                _numberItemCount.value = list.size
             }
         }
     }

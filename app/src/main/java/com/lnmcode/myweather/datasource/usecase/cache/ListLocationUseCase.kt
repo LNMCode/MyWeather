@@ -13,5 +13,5 @@ interface ListLocationUseCase {
     suspend fun getAllLocations(onSuccess: () -> Unit): Flow<List<ListLocation>>
 
     @WorkerThread
-    suspend fun getLocation(id: Int, onSuccess: () -> Unit): Flow<ListLocation>
+    suspend fun getLocation(id: Int, onSuccess: () -> Unit): Flow<ListLocation?>
 }

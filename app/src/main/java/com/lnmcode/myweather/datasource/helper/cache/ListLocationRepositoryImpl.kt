@@ -22,7 +22,7 @@ class ListLocationRepositoryImpl(
         }
     }
 
-    override suspend fun getLocation(id: Int): ListLocationEntity {
+    override suspend fun getLocation(id: Int): ListLocationEntity? {
         return withContext(ioDispatcher) {
             listLocationDao.getLocation(id)
         }

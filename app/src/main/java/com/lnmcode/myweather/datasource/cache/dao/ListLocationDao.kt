@@ -16,6 +16,6 @@ interface ListLocationDao {
     suspend fun getAllLocations(): List<ListLocationEntity>
 
     @Query("SELECT * FROM locations WHERE id = :id")
-    suspend fun getLocation(id: Int): ListLocationEntity
+    suspend fun getLocation(id: Int): ListLocationEntity?
 
 }
