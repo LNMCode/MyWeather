@@ -37,6 +37,7 @@
             android:visibility="@{vm.loading ? View.VISIBLE : View.GONE}" />
 
         <include
+            android:id="@+id/nav_bottom"
             layout="@layout/layout_nav_bottom_home"
             app:viewpager="@{viewpager}"/>
 

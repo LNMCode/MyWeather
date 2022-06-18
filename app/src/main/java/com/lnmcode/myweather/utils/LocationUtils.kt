@@ -3,10 +3,7 @@ package com.lnmcode.myweather.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.lnmcode.myweather.presentation.ui.home_weather.LocationTrigger
 import timber.log.Timber
 
@@ -34,14 +31,20 @@ object LocationUtils {
         .setFastestInterval(fastestInterval)
         .setPriority(priority)
 
+    fun getFusedLocationProvider(context: Context): FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(context)
+
     @SuppressLint("MissingPermission")
     fun startLocationServiceProvider(
-        context: Context,
+        fusedLocationServices: FusedLocationProviderClient,
         locationRequest: LocationRequest,
         locationCallback: LocationCallback,
     ) {
-        LocationServices.getFusedLocationProviderClient(context)
-            .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+        fusedLocationServices.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
     }
 
     fun removeLocationServiceProvider(
